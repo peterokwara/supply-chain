@@ -1,0 +1,76 @@
+@startuml
+!theme plain
+
+Ownable <|-- SupplyChain
+
+Roles <|-- FarmerRole
+Roles <|-- RetailerRole
+Roles <|-- ConsumerRole
+Roles <|-- DistributorRole
+
+FarmerRole <|-- SupplyChain
+RetailerRole <|-- SupplyChain
+ConsumerRole <|-- SupplyChain
+DistributorRole <|-- SupplyChain
+
+class ConsumerRole {
+  + isConsumer()
+  + addConsumer()
+  + renounceConsumer()
+  - _addConsumer()
+  - _removeConsumer()
+}
+class DistributorRole {
+  + isDistributor()
+  + addDistributor()
+  + renounceDistributor()
+  - _addDistributor()
+  - _renounceDistributor()
+}
+class FarmerRole {
+  + isFarmer()
+  + addFarmer()
+  + renounceFarmer()
+  - _addFarmer()
+  - _removeFarmer()
+}
+class RetailerRole {
+  + isRetailer()
+  + addRetailer()
+  + renounceRetailer()
+  - _addRetailer()
+  - _removeRetailer()
+}
+class Roles {
+  - add()
+  - remove()
+  - has()
+}
+class SupplyChain {
+  address owner
+  uint upc
+  uint sku
+  mapping items
+  mapping itemHistory
+  enum state {}
+  + kill()
+  + harvestItem()
+  + processItem()
+  + packItem()
+  + sellItem()
+  + buyItem()
+  + shipItem()
+  + receiveItem()
+  + purchaseItem()
+  + fetchItemBufferOne()
+  + fetchItemBufferTwo()
+}
+class Ownable {
+  address origOwner
+  + owner()
+  + isOwner()
+  + renounceOnwership()
+  + transferOwnership()
+  - _transferOwnership()
+}
+@enduml

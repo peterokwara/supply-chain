@@ -1,0 +1,31 @@
+@startuml
+!theme plain
+
+participant Coffee as Coffee
+actor Farmer as Farmer
+actor Distributor as Distributor
+actor Retailer as Retailer
+actor Consumer as Consumer
+
+activate Coffee
+activate Farmer
+Farmer <-- Coffee : harvestItem()
+Farmer <-- Coffee : processItem()
+Farmer <-- Coffee : packItem()
+Farmer <-- Coffee : addItem()
+activate Distributor
+Farmer <-- Distributor: buyItem()
+deactivate Farmer 
+activate Retailer
+Distributor --> Retailer : shipItem()
+Distributor <-- Retailer : receiveItem()
+deactivate Distributor
+activate Consumer
+Consumer --> Retailer : purchaseItem()
+deactivate Retailer
+
+Coffee --> Consumer : fetchItemBufferOne()
+Coffee --> Consumer : fetchItemBufferTwo()
+deactivate Consumer
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+!theme plain
+
+|Farmer|
+start
+:Harvest Item;
+:Process Item;
+:Pack Item;
+:Add Item;
+
+|Distributor|
+:Buy Item;
+:Ship Item;
+
+|Retailer|
+:Receive Item;
+
+|Consumer|
+:Purchase Item;
+stop
+
+@enduml
