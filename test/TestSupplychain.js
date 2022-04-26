@@ -89,12 +89,17 @@ contract('SupplyChain', function (accounts) {
 
 
         // Mark an item as Processed by calling function processtItem()
+        await supplyChain.processItem(upc)
 
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
+        const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
+        const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
 
 
         // Verify the result set
+        assert.equal(eventEmitted, true, 'Invalid event emitted') // Check if event was emitted
+        assert.equal(resultBufferTwo[5], 1, 'Error: Invalid item State') // Check if state is processed
 
     })
 
