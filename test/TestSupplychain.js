@@ -135,7 +135,6 @@ contract('SupplyChain', function (accounts) {
         // Declare and Initialize a variable for event
         const event = supplyChain.ForSale()
 
-
         // Watch the emitted event ForSale()
         await event.watch((err, res) => {
             eventEmitted = true
@@ -159,19 +158,37 @@ contract('SupplyChain', function (accounts) {
         const supplyChain = await SupplyChain.deployed()
 
         // Declare and Initialize a variable for event
-
+        const event = supplyChain.Sold()
 
         // Watch the emitted event Sold()
-        var event = supplyChain.Sold()
+        await event.watch((err, res) => {
+            eventEmitted = true
+        })
 
+        // Previous balance of the farmer, distributor in integer format
+        const balanceBeforeFarmer = parseInt(web3.fromWei(web3.eth.getBalance(originFarmerID), 'ether'), 10)
+        const balanceBeforeDistributor = parseInt(web3.fromWei(web3.eth.getBalance(distributorID), 'ether'), 10)
 
         // Mark an item as Sold by calling function buyItem()
+        let balance = web3.toWei('1', 'ether');
+        await supplyChain.buyItem(upc, { from: distributorID, value: balance, gasPrice: 0 });
 
+        // Product price in eth
+        const productPriceEth = parseInt(web3.fromWei(productPrice, 'ether'), 10)
+
+        // Balance of the farmer, distributor after the sale
+        const balanceAfterFarmer = balanceBeforeFarmer + productPriceEth
+        const balanceAfterDistributor = balanceBeforeDistributor - productPriceEth
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
-
+        const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
+        const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
 
         // Verify the result set
+        assert.equal(eventEmitted, true, 'Invalid event emitted') // Check if event was emitted
+        assert.equal(resultBufferTwo[5], 4, 'Error: Invalid item state') // Check if the state is Sold
+        assert.equal(balanceAfterFarmer, web3.fromWei(web3.eth.getBalance(resultBufferOne[3])), 'Error: Invalid balance of the farmer') // Check if the balance of the farmer is correct (balanceBeforeFarmer + productPrice = balanceAfterFarmer)
+        assert.equal(balanceAfterDistributor, web3.fromWei(web3.eth.getBalance(resultBufferOne[2])), 'Error: Invalid balance of the distributor') // Check if the balance of the distributior is correct (balanceBeforeDistributor - productPrice = balanceAfterDistributor)
 
     })
 
