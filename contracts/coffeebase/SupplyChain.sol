@@ -264,13 +264,17 @@ contract SupplyChain is
     // Use the above modifers to check if the item is sold
     function shipItem(uint256 _upc)
         public
-        // Call modifier to check if upc has passed previous supply chain stage
-        sold(_upc)
-        // Call modifier to verify caller of this function
-        verifyCaller(items[_upc].distributorID)
+    // Call modifier to check if upc has passed previous supply chain stage
+    // sold(_upc)
+    // Call modifier to verify caller of this function
+    // verifyCaller(items[_upc].distributorID)
+
+    // Only distributor should access this
+    // onlyDistributor
     {
         // Update the appropriate fields
         items[_upc].itemState = State.Shipped;
+
         // Emit the appropriate event
         emit Shipped(_upc);
     }
