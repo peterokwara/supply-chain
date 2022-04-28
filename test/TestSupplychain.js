@@ -186,7 +186,9 @@ contract('SupplyChain', function (accounts) {
 
         // Verify the result set
         assert.equal(eventEmitted, true, 'Invalid event emitted') // Check if event was emitted
+        assert.equal(resultBufferOne[2], distributorID, 'Error: Missing or Invalid ownerID') // Check if the owner id is correct
         assert.equal(resultBufferTwo[5], 4, 'Error: Invalid item state') // Check if the state is Sold
+        assert.equal(resultBufferTwo[6], distributorID, 'Error: Missing or Invalid distributorID') // Check if the distributor id is correct
         assert.equal(balanceAfterFarmer, web3.fromWei(web3.eth.getBalance(resultBufferOne[3])), 'Error: Invalid balance of the farmer') // Check if the balance of the farmer is correct (balanceBeforeFarmer + productPrice = balanceAfterFarmer)
         assert.equal(balanceAfterDistributor, web3.fromWei(web3.eth.getBalance(resultBufferOne[2])), 'Error: Invalid balance of the distributor') // Check if the balance of the distributior is correct (balanceBeforeDistributor - productPrice = balanceAfterDistributor)
 
@@ -205,6 +207,7 @@ contract('SupplyChain', function (accounts) {
         })
 
         // Mark an item as shipped by calling function shipItem()
+        supplyChain.addDistributor(distributorID, { from: ownerID });
         await supplyChain.shipItem(upc, { from: distributorID, gasPrice: 0 })
 
 
@@ -255,6 +258,7 @@ contract('SupplyChain', function (accounts) {
         })
 
         // Mark an item as Sold by calling function buyItem()
+        supplyChain.addConsumer(consumerID, { from: ownerID });
         await supplyChain.purchaseItem(upc, { from: consumerID })
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
@@ -262,9 +266,9 @@ contract('SupplyChain', function (accounts) {
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
 
         // Verify the result set
-        assert.equal(resultBufferOne[2], consumerID, 'Error: Missing or invalid Owner ID') // Check if the state is ForSale
+        assert.equal(resultBufferOne[2], consumerID, 'Error: Missing or invalid Owner ID') // Check the owner id
         assert.equal(resultBufferTwo[5], 7, 'Error: Invalid item state') // Check if the state is Received Item
-        assert.equal(resultBufferTwo[8], consumerID, 'Error: Missing or invalid Consumer ID') // Check if the state is ForSale
+        assert.equal(resultBufferTwo[8], consumerID, 'Error: Missing or invalid Consumer ID') // Check the consumer id
 
     })
 

@@ -173,7 +173,7 @@ contract SupplyChain is
         string _originFarmLatitude,
         string _originFarmLongitude,
         string _productNotes
-    ) public {
+    ) public onlyFarmer {
         // Add the new item as part of Harvest
         uint256 productID = _upc + sku;
         items[_upc].sku = sku;
@@ -200,6 +200,7 @@ contract SupplyChain is
         harvested(_upc)
         // Call modifier to verify caller of this function
         verifyCaller(items[_upc].ownerID)
+        onlyFarmer
     {
         // Update the appropriate fields
         items[_upc].itemState = State.Processed;
@@ -214,6 +215,7 @@ contract SupplyChain is
         processed(_upc)
         // Call modifier to verify caller of this function
         verifyCaller(items[_upc].ownerID)
+        onlyFarmer
     {
         // Update the appropriate fields
         items[_upc].itemState = State.Packed;
@@ -228,6 +230,7 @@ contract SupplyChain is
         packed(_upc)
         // Call modifier to verify caller of this function
         verifyCaller(items[_upc].ownerID)
+        onlyFarmer
     {
         // Update the appropriate fields
         items[_upc].itemState = State.ForSale;
@@ -265,13 +268,12 @@ contract SupplyChain is
     // Use the above modifers to check if the item is sold
     function shipItem(uint256 _upc)
         public
-    // Call modifier to check if upc has passed previous supply chain stage
-    // sold(_upc)
-    // Call modifier to verify caller of this function
-    // verifyCaller(items[_upc].distributorID)
-
-    // Only distributor should access this
-    // onlyDistributor
+        // Call modifier to check if upc has passed previous supply chain stage
+        sold(_upc)
+        // Call modifier to verify caller of this function
+        verifyCaller(items[_upc].distributorID)
+        // Only distributor should access this
+        onlyDistributor
     {
         // Update the appropriate fields
         items[_upc].itemState = State.Shipped;
@@ -286,7 +288,8 @@ contract SupplyChain is
         public
         // Call modifier to check if upc has passed previous supply chain stage
         shipped(_upc)
-    // Access Control List enforced by calling Smart Contract / DApp
+        // Access Control List enforced by calling Smart Contract / DApp
+        onlyRetailer
     {
         // Update the appropriate fields - ownerID, retailerID, itemState
         address retailer = msg.sender;
@@ -303,7 +306,8 @@ contract SupplyChain is
         public
         // Call modifier to check if upc has passed previous supply chain stage
         received(_upc)
-    // Access Control List enforced by calling Smart Contract / DApp
+        // Access Control List enforced by calling Smart Contract / DApp
+        onlyConsumer
     {
         // Update the appropriate fields - ownerID, consumerID, itemState
         address consumer = msg.sender;
