@@ -252,6 +252,7 @@ contract SupplyChain is
         // Update the appropriate fields - ownerID, distributorID, itemState
         address distributor = msg.sender;
         items[_upc].ownerID = distributor;
+        items[_upc].distributorID = distributor;
         items[_upc].itemState = State.Sold;
         // Transfer money to farmer
         uint256 price = items[_upc].productPrice;

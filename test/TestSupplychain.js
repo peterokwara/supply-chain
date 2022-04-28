@@ -153,44 +153,44 @@ contract('SupplyChain', function (accounts) {
 
     })
 
-    // // 5th Test
-    // it("Testing smart contract function buyItem() that allows a distributor to buy coffee", async () => {
-    //     const supplyChain = await SupplyChain.deployed()
+    // 5th Test
+    it("Testing smart contract function buyItem() that allows a distributor to buy coffee", async () => {
+        const supplyChain = await SupplyChain.deployed()
 
-    //     // Declare and Initialize a variable for event
-    //     const event = supplyChain.Sold()
+        // Declare and Initialize a variable for event
+        const event = supplyChain.Sold()
 
-    //     // Watch the emitted event Sold()
-    //     await event.watch((err, res) => {
-    //         eventEmitted = true
-    //     })
+        // Watch the emitted event Sold()
+        await event.watch((err, res) => {
+            eventEmitted = true
+        })
 
-    //     // Previous balance of the farmer, distributor in integer format
-    //     const balanceBeforeFarmer = parseInt(web3.fromWei(web3.eth.getBalance(originFarmerID), 'ether'), 10)
-    //     const balanceBeforeDistributor = parseInt(web3.fromWei(web3.eth.getBalance(distributorID), 'ether'), 10)
+        // Previous balance of the farmer, distributor in integer format
+        const balanceBeforeFarmer = parseInt(web3.fromWei(web3.eth.getBalance(originFarmerID), 'ether'), 10)
+        const balanceBeforeDistributor = parseInt(web3.fromWei(web3.eth.getBalance(distributorID), 'ether'), 10)
 
-    //     // Mark an item as Sold by calling function buyItem()
-    //     let balance = web3.toWei('1', 'ether');
-    //     await supplyChain.buyItem(upc, { from: distributorID, value: balance, gasPrice: 0 });
+        // Mark an item as Sold by calling function buyItem()
+        let balance = web3.toWei('1', 'ether');
+        await supplyChain.buyItem(upc, { from: distributorID, value: balance, gasPrice: 0 });
 
-    //     // Product price in eth
-    //     const productPriceEth = parseInt(web3.fromWei(productPrice, 'ether'), 10)
+        // Product price in eth
+        const productPriceEth = parseInt(web3.fromWei(productPrice, 'ether'), 10)
 
-    //     // Balance of the farmer, distributor after the sale
-    //     const balanceAfterFarmer = balanceBeforeFarmer + productPriceEth
-    //     const balanceAfterDistributor = balanceBeforeDistributor - productPriceEth
+        // Balance of the farmer, distributor after the sale
+        const balanceAfterFarmer = balanceBeforeFarmer + productPriceEth
+        const balanceAfterDistributor = balanceBeforeDistributor - productPriceEth
 
-    //     // Retrieve the just now saved item from blockchain by calling function fetchItem()
-    //     const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
-    //     const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
+        // Retrieve the just now saved item from blockchain by calling function fetchItem()
+        const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
+        const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
 
-    //     // Verify the result set
-    //     assert.equal(eventEmitted, true, 'Invalid event emitted') // Check if event was emitted
-    //     assert.equal(resultBufferTwo[5], 4, 'Error: Invalid item state') // Check if the state is Sold
-    //     assert.equal(balanceAfterFarmer, web3.fromWei(web3.eth.getBalance(resultBufferOne[3])), 'Error: Invalid balance of the farmer') // Check if the balance of the farmer is correct (balanceBeforeFarmer + productPrice = balanceAfterFarmer)
-    //     assert.equal(balanceAfterDistributor, web3.fromWei(web3.eth.getBalance(resultBufferOne[2])), 'Error: Invalid balance of the distributor') // Check if the balance of the distributior is correct (balanceBeforeDistributor - productPrice = balanceAfterDistributor)
+        // Verify the result set
+        assert.equal(eventEmitted, true, 'Invalid event emitted') // Check if event was emitted
+        assert.equal(resultBufferTwo[5], 4, 'Error: Invalid item state') // Check if the state is Sold
+        assert.equal(balanceAfterFarmer, web3.fromWei(web3.eth.getBalance(resultBufferOne[3])), 'Error: Invalid balance of the farmer') // Check if the balance of the farmer is correct (balanceBeforeFarmer + productPrice = balanceAfterFarmer)
+        assert.equal(balanceAfterDistributor, web3.fromWei(web3.eth.getBalance(resultBufferOne[2])), 'Error: Invalid balance of the distributor') // Check if the balance of the distributior is correct (balanceBeforeDistributor - productPrice = balanceAfterDistributor)
 
-    // })
+    })
 
     // 6th Test
     it("Testing smart contract function shipItem() that allows a distributor to ship coffee", async () => {
@@ -230,15 +230,15 @@ contract('SupplyChain', function (accounts) {
 
         // Mark an item as Sold by calling function buyItem()
         supplyChain.addRetailer(retailerID, { from: ownerID });
-        await supplyChain.receiveItem(upc);
+        await supplyChain.receiveItem(upc, { from: retailerID });
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
 
         // Verify the result set
-        assert.equal(resultBufferOne[2], ownerID, 'Error: Invalid Owner ID') // Check if the state is ForSale
-        assert.equal(resultBufferTwo[7], ownerID, 'Error: Invalid Retailer ID') // Check if the state is ForSale
+        assert.equal(resultBufferOne[2], retailerID, 'Error: Invalid Owner ID') // Check if the state is ForSale
+        assert.equal(resultBufferTwo[7], retailerID, 'Error: Invalid Retailer ID') // Check if the state is ForSale
         assert.equal(resultBufferTwo[5], 6, 'Error: Invalid item state') // Check if the state is Received Item
     })
 
@@ -294,17 +294,16 @@ contract('SupplyChain', function (accounts) {
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
 
-
         // Verify the result set:
         assert.equal(resultBufferTwo[0], sku, 'Error: Invalid item SKU')
         assert.equal(resultBufferTwo[1], upc, 'Error: Invalid item UPC')
         assert.equal(resultBufferTwo[2], productID, 'Error: Missing or Invalid ownerID')
         assert.equal(resultBufferTwo[3], productNotes, 'Error: Missing or Invalid productNotes')
         assert.equal(resultBufferTwo[4], productPrice, 'Error: Missing or Invalid productPrice')
-        // // assert.equal(resultBufferTwo[5], itemState, 'Error: Missing or Invalid itemState')
-        // assert.equal(resultBufferTwo[6], distributorID, 'Error: Missing or Invalid distributorID')
-        // assert.equal(resultBufferTwo[7], retailerID, 'Error: Missing or Invalid retailerID')
-        // assert.equal(resultBufferTwo[8], consumerID, 'Error: Missing or Invalid consumerID')
+        assert.equal(resultBufferTwo[5], 7, 'Error: Missing or Invalid itemState')
+        assert.equal(resultBufferTwo[6], distributorID, 'Error: Missing or Invalid distributorID')
+        assert.equal(resultBufferTwo[7], retailerID, 'Error: Missing or Invalid retailerID')
+        assert.equal(resultBufferTwo[8], consumerID, 'Error: Missing or Invalid consumerID')
 
     })
 
