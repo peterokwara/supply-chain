@@ -1,8 +1,8 @@
 import FarmDetails from "./routes/Coffee/FarmDetails/FarmDetails";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Component } from "react";
-// import ServiceFactory from "./factories/serviceFactory";
-// import EthereumService from "./services/ethereumService";
+import ServiceFactory from "./factories/serviceFactory";
+import EthereumService from "./services/ethereumService";
 import Header from "./components/Layout/Header/Header";
 import Footer from "./components/Layout/Footer/Footer";
 import ProductOverview from "./routes/Coffee/ProductOverview/ProductOverview";
@@ -17,7 +17,13 @@ class App extends Component {
    */
   async componentDidMount() {
     // Register the ethereum service
-    // await ServiceFactory.register("api-client", () => new EthereumService());
+    await ServiceFactory.register(
+      "ethereum-service",
+      () => new EthereumService()
+    );
+
+    const ethereumService = ServiceFactory.get("ethereum-service");
+    ethereumService.initWeb3();
   }
   render() {
     return (
