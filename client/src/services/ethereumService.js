@@ -1,13 +1,11 @@
 const { ethers } = require("ethers");
-const SupplyChainArtifact = "../contracts/SupplyChain.json";
+const SupplyChainArtifact = require("../contracts/SupplyChain.json");
 
 /**
  * Class to handle all ethereum transactions/communications.
  */
 class EthereumService {
   constructor() {
-    this.provider = "";
-    this.metamaskAccountID = "";
     this.App = {
       web3Provider: null,
       contracts: {},
@@ -75,18 +73,19 @@ class EthereumService {
   /**
    * Initialize the supply chain
    */
-  initSupplyChain() {
+  async initSupplyChain() {
     // Connect to web3
-    // const signer = this.App.web3Provider.getSigner();
-    // const contractAddress = SupplyChainArtifact.networks[];
-    // this.App.contracts.SupplyChain = new ethers.Contract(
-    //   contractAddress,
-    //   SupplyChainArtifact.abi,
-    //   signer
-    // );
-    // const SupplyChainArtifact = jsonSupplyChain;
-    // this.appInfo.SupplyChain = TruffleContract(SupplyChainArtifact);
-    // this.appInfo.contracts.SupplyChain.setProvider(this.appInfo.web3Provider);
+    const signer = this.App.web3Provider.getSigner();
+    const network = await this.App.web3Provider.getNetwork();
+    const networkID = network.chainId;
+    const contractAddress = SupplyChainArtifact.networks[networkID];
+    this.App.contracts.SupplyChain = new ethers.Contract(
+      contractAddress,
+      SupplyChainArtifact.abi,
+      signer
+    );
+    // console.log(this.App.contracts.SupplyChain);
+    // this.App.contracts.SupplyChain.setProvider(this.App.web3Provider);
   }
 
   async harvestItem(
