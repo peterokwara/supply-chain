@@ -2496,7 +2496,20 @@
     "name": "solc",
     "version": "0.4.24+commit.e67f0147.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "4": {
+      "events": {},
+      "links": {},
+      "address": "0xcc734d133999dfcae4528dbda701fe9df91b199c",
+      "transactionHash": "0xa8df4b855b1c606db6a81630232900b53fca01f662dce4b60e89a2889e690726"
+    },
+    "4447": {
+      "events": {},
+      "links": {},
+      "address": "0xf204a4ef082f5c04bb89f7d5e6568b796096735a",
+      "transactionHash": "0xef259f90579fc67f4f6191620037c4023fc3abb6b190fa0c130e99cd1dfe2600"
+    }
+  },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2022-04-29T10:18:07.351Z"
+  "updatedAt": "2022-05-05T12:08:52.478Z"
 }
