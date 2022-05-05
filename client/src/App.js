@@ -21,9 +21,6 @@ class App extends Component {
       "ethereum-service",
       () => new EthereumService()
     );
-
-    const ethereumService = ServiceFactory.get("ethereum-service");
-    ethereumService.initWeb3();
   }
   render() {
     return (

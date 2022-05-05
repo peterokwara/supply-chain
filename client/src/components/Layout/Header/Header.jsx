@@ -1,6 +1,8 @@
 import { Component } from "react";
 import Button from "../../Common/Button/Button";
 import Link from "../../Common/Link/Link";
+import ServiceFactory from "../../../factories/serviceFactory";
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,8 @@ class Header extends Component {
   }
   connectWallet(e) {
     e.preventDefault();
-    console.log("hello world nigga!");
+    const ethereumService = ServiceFactory.get("ethereum-service");
+    ethereumService.initWeb3();
   }
   render() {
     return (
