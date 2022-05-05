@@ -28,6 +28,7 @@ class App extends Component {
         <Header />
         <Router>
           <Routes>
+            <Route exact path="/" element={<FarmDetails />} />
             <Route exact path="/farm-details" element={<FarmDetails />} />
             <Route
               exact
