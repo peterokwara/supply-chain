@@ -5,8 +5,12 @@ class Modal extends Component {
   render() {
     return (
       <div className={this.props.styles}>
-        <span className="close">&times;</span>
-        <p>Some text in the Modal..</p>
+        <div className="flex flex-col ">
+          <span className="close self-end" onClick={this.props.click}>
+            &times;
+          </span>
+          <p>Some text in the Modal.. {this.props.text}</p>
+        </div>
       </div>
     );
   }

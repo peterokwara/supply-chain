@@ -9,11 +9,15 @@ import Modal from "../../../components/Common/Modal/Modal";
 class FarmDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = { showSpinner: false, showModal: true };
+    this.state = { showSpinner: true, showModal: false };
   }
   toggleSpinner = (e) => {
     e.preventDefault();
     this.setState({ showSpinner: !this.state.showSpinner });
+  };
+  toggleModal = (e) => {
+    e.preventDefault();
+    this.setState({ showModal: !this.state.showModal });
   };
   render() {
     return (
@@ -21,7 +25,10 @@ class FarmDetails extends Component {
         <Spinner
           styles={this.state.showSpinner ? "hideSpinner" : "displaySpinner"}
         />
-        <Modal styles={this.state.showModal ? "hideModal" : "displayModal"} />
+        <Modal
+          styles={this.state.showModal ? "hideModal" : "displayModal"}
+          click={this.toggleModal}
+        />
         <PageHeading name="Farm Details" />
         <form className="flex flex-col px-4 md:px-12 lg:px-40 overflow-auto">
           <Label name="Farmer ID" />
