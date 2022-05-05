@@ -11,7 +11,6 @@ class Menu extends Component {
     e.preventDefault();
     this.setState({ menuOpen: !this.state.menuOpen });
   };
-  componentDidMount = () => {};
   render() {
     return (
       <div className="flex lg:hidden">

@@ -1,0 +1,12 @@
+.hideSpinner {
+  display: none;
+}
+
+.displaySpinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 40%;
+  top: 40%;
+  position: absolute;
+}

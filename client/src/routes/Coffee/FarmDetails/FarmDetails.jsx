@@ -3,11 +3,23 @@ import Button from "../../../components/Common/Button/Button";
 import Input from "../../../components/Forms/Input/Input";
 import Label from "../../../components/Forms/Label/Label";
 import PageHeading from "../../../components/Common/PageHeading/PageHeading";
+import Spinner from "../../../components/Common/Spinner/Spinner";
 
 class FarmDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { showSpinner: true };
+  }
+  toggleSpinner = (e) => {
+    e.preventDefault();
+    this.setState({ showSpinner: !this.state.showSpinner });
+  };
   render() {
     return (
       <div className="overflow-auto">
+        <Spinner
+          styles={this.state.showSpinner ? "hideSpinner" : "displaySpinner"}
+        />
         <PageHeading name="Farm Details" />
         <form className="flex flex-col px-4 md:px-12 lg:px-40 overflow-auto">
           <Label name="Farmer ID" />
