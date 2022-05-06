@@ -73,7 +73,8 @@ class EthereumService {
     // Connect to web3
     const signer = this.App.web3Provider.getSigner();
     const network = await this.App.web3Provider.getNetwork();
-    const networkID = network.chainId;
+    const networkID = "5777";
+    console.log(SupplyChainArtifact.networks[networkID]);
     const contractAddress = SupplyChainArtifact.networks[networkID].address;
     this.App.contracts.SupplyChain = new ethers.Contract(
       contractAddress,
@@ -112,9 +113,47 @@ class EthereumService {
       console.log(error);
     }
   }
-  async processItem(upc) {}
-  async packItem(upc) {}
-  async sellItem(upc, price) {}
+  async processItem(upc) {
+    const { processItem } = this.App.contracts.SupplyChain;
+    try {
+      const transaction = await processItem(upc, {
+        from: this.App.metamaskAccountID,
+        gasLimit: 4712388,
+        gasPrice: 100000000000,
+      });
+      await transaction.wait();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async packItem(upc) {
+    const { packItem } = this.App.contracts.SupplyChain;
+    try {
+      const transaction = await packItem(upc, {
+        from: this.App.metamaskAccountID,
+        gasLimit: 4712388,
+        gasPrice: 100000000000,
+      });
+      await transaction.wait();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async sellItem(upc, cost) {
+    const { sellItem } = this.App.contracts.SupplyChain;
+    const price = ethers.utils.formatUnits(cost, "wei");
+    try {
+      const transaction = await sellItem(upc, price, {
+        from: this.App.metamaskAccountID,
+        gasLimit: 4712388,
+        gasPrice: 100000000000,
+      });
+      await transaction.wait();
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async buyItem(upc) {}
   async shipItem(upc) {}
   async receiveItem(upc) {}

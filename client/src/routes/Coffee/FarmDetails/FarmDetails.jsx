@@ -10,16 +10,18 @@ import ServiceFactory from "../../../factories/serviceFactory";
 class FarmDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = { showSpinner: true, showModal: false };
+    this.state = { showSpinner: true, showModal: true };
   }
-  toggleSpinner = (e) => {
-    e.preventDefault();
+  toggleSpinner = () => {
     this.setState({ showSpinner: !this.state.showSpinner });
   };
   toggleModal = async (e) => {
     e.preventDefault();
     this.setState({ showModal: !this.state.showModal });
+  };
 
+  onHarvestItem = async (e) => {
+    e.preventDefault();
     const productID = "111";
     const sku = "22";
     const upc = "1";
@@ -33,21 +35,69 @@ class FarmDetails extends Component {
     const itemState = 0;
 
     const EthereumService = ServiceFactory.get("ethereum-service");
-    console.log("loading...");
-    await EthereumService.getMetamaskAccountID();
-    await EthereumService.initSupplyChain();
-    await EthereumService.harvestItem(
-      upc,
-      originFarmerID,
-      originFarmName,
-      originFarmInformation,
-      originFarmLatitude,
-      originFarmLongitude,
-      productNotes
-    );
+
+    try {
+      await EthereumService.getMetamaskAccountID();
+      await EthereumService.initSupplyChain();
+      await EthereumService.harvestItem(
+        upc,
+        originFarmerID,
+        originFarmName,
+        originFarmInformation,
+        originFarmLatitude,
+        originFarmLongitude,
+        productNotes
+      );
+    } catch (error) {
+      this.toggleSpinner();
+    }
   };
 
-  componentDidMount() {}
+  onProcessItem = async (e) => {
+    e.preventDefault();
+
+    const upc = "1";
+    const EthereumService = ServiceFactory.get("ethereum-service");
+
+    try {
+      await EthereumService.processItem(upc);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  onPackItem = async (e) => {
+    e.preventDefault();
+
+    const upc = "1";
+    const EthereumService = ServiceFactory.get("ethereum-service");
+
+    try {
+      await EthereumService.packItem(upc);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  onSellItem = async (e) => {
+    e.preventDefault();
+
+    const upc = "1";
+    const price = "1";
+    const EthereumService = ServiceFactory.get("ethereum-service");
+
+    try {
+      await EthereumService.sellItem(upc, price);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  async componentDidMount() {
+    const EthereumService = ServiceFactory.get("ethereum-service");
+    await EthereumService.getMetamaskAccountID();
+    await EthereumService.initSupplyChain();
+  }
   render() {
     return (
       <div className="overflow-auto">
@@ -73,18 +123,22 @@ class FarmDetails extends Component {
           <div className="flex flex-row pt-2 flex-wrap">
             <Button
               name="Harvest"
+              click={this.onHarvestItem}
               styles="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
             />
             <Button
               name="Process"
+              click={this.onProcessItem}
               styles="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
             />
             <Button
               name="Pack"
+              click={this.onPackItem}
               styles="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
             />
             <Button
               name="For Sale"
+              click={this.onSellItem}
               styles="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
             />
           </div>

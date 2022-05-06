@@ -8,6 +8,8 @@ import Footer from "./components/Layout/Footer/Footer";
 import ProductOverview from "./routes/Coffee/ProductOverview/ProductOverview";
 import ProductDetails from "./routes/Coffee/ProductDetails/ProductDetails";
 import TransactionHistory from "./routes/Coffee/TransactionHistory/TransactionHistory";
+import Modal from "./components/Common/Modal/Modal";
+
 /**
  * Main application class
  */
