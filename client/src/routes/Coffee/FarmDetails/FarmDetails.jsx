@@ -5,6 +5,7 @@ import Label from "../../../components/Forms/Label/Label";
 import PageHeading from "../../../components/Common/PageHeading/PageHeading";
 import Spinner from "../../../components/Common/Spinner/Spinner";
 import Modal from "../../../components/Common/Modal/Modal";
+import ServiceFactory from "../../../factories/serviceFactory";
 
 class FarmDetails extends Component {
   constructor(props) {
@@ -15,10 +16,38 @@ class FarmDetails extends Component {
     e.preventDefault();
     this.setState({ showSpinner: !this.state.showSpinner });
   };
-  toggleModal = (e) => {
+  toggleModal = async (e) => {
     e.preventDefault();
     this.setState({ showModal: !this.state.showModal });
+
+    const productID = "111";
+    const sku = "22";
+    const upc = "1";
+    const ownerID = "0x00000000000000000000000000000000000000";
+    const originFarmerID = "0x00000000000000000000000000000000000000";
+    const originFarmName = "James dean";
+    const originFarmInformation = "disco disco";
+    const originFarmLatitude = "23";
+    const originFarmLongitude = "23";
+    const productNotes = "buldog";
+    const itemState = 0;
+
+    const EthereumService = ServiceFactory.get("ethereum-service");
+    console.log("loading...");
+    await EthereumService.getMetamaskAccountID();
+    await EthereumService.initSupplyChain();
+    await EthereumService.harvestItem(
+      upc,
+      originFarmerID,
+      originFarmName,
+      originFarmInformation,
+      originFarmLatitude,
+      originFarmLongitude,
+      productNotes
+    );
   };
+
+  componentDidMount() {}
   render() {
     return (
       <div className="overflow-auto">

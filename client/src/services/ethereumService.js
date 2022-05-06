@@ -55,10 +55,6 @@ class EthereumService {
         "http://localhost:7545"
       );
     }
-
-    await this.getMetamaskAccountID();
-
-    await this.initSupplyChain();
   }
 
   /**
@@ -78,29 +74,44 @@ class EthereumService {
     const signer = this.App.web3Provider.getSigner();
     const network = await this.App.web3Provider.getNetwork();
     const networkID = network.chainId;
-    const contractAddress = SupplyChainArtifact.networks[networkID];
+    const contractAddress = SupplyChainArtifact.networks[networkID].address;
     this.App.contracts.SupplyChain = new ethers.Contract(
       contractAddress,
       SupplyChainArtifact.abi,
       signer
     );
-    // console.log(this.App.contracts.SupplyChain);
-    // this.App.contracts.SupplyChain.setProvider(this.App.web3Provider);
   }
 
   async harvestItem(
-    productID,
-    sku,
     upc,
-    ownerID,
     originFarmerID,
     originFarmName,
     originFarmInformation,
     originFarmLatitude,
     originFarmLongitude,
-    productNotes,
-    itemState
-  ) {}
+    productNotes
+  ) {
+    const { harvestItem } = this.App.contracts.SupplyChain;
+    try {
+      const transaction = await harvestItem(
+        upc,
+        this.App.metamaskAccountID,
+        originFarmName,
+        originFarmInformation,
+        originFarmLatitude,
+        originFarmLongitude,
+        productNotes,
+        {
+          from: this.App.metamaskAccountID,
+          gasLimit: 4712388,
+          gasPrice: 100000000000,
+        }
+      );
+      await transaction.wait();
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async processItem(upc) {}
   async packItem(upc) {}
   async sellItem(upc, price) {}
