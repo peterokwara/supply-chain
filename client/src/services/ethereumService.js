@@ -227,7 +227,7 @@ class EthereumService {
         gasLimit: 4712388,
         gasPrice: 0,
       });
-      await transaction.wait();
+      // await transaction.wait();
       console.log(transaction);
     } catch (error) {
       console.log(error);
@@ -241,7 +241,7 @@ class EthereumService {
         gasLimit: 4712388,
         gasPrice: 0,
       });
-      await transaction.wait();
+      // await transaction.wait();
       console.log(transaction);
     } catch (error) {
       console.log(error);

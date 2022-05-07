@@ -44,6 +44,8 @@ class App extends Component {
     this.onProcessItem = this.onProcessItem.bind(this);
     this.onPackItem = this.onPackItem.bind(this);
     this.onSellItem = this.onSellItem.bind(this);
+    this.onFetchItemBufferOne = this.onFetchItemBufferOne.bind(this);
+    this.onFetchItemBufferTwo = this.onFetchItemBufferTwo.bind(this);
   }
 
   onHarvestItem = async (event) => {
@@ -153,6 +155,32 @@ class App extends Component {
     }
   };
 
+  onFetchItemBufferOne = async (event) => {
+    event.preventDefault();
+
+    const ethereumService = ServiceFactory.get("ethereum-service");
+
+    try {
+      // Add consumer?
+      await ethereumService.fetchItemBufferOne(this.state.coffee.upc);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  onFetchItemBufferTwo = async (event) => {
+    event.preventDefault();
+
+    const ethereumService = ServiceFactory.get("ethereum-service");
+
+    try {
+      // Add consumer?
+      await ethereumService.fetchItemBufferTwo(this.state.coffee.upc);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;
@@ -203,6 +231,8 @@ class App extends Component {
                 <ProductOverview
                   handleChange={this.handleChange}
                   appState={this.state.coffee}
+                  onFetchItemBufferOne={this.onFetchItemBufferOne}
+                  onFetchItemBufferTwo={this.onFetchItemBufferTwo}
                 />
               }
             />
