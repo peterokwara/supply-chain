@@ -42,22 +42,6 @@ class App extends Component {
   onHarvestItem = async (event) => {
     event.preventDefault();
     const ethereumService = ServiceFactory.get("ethereum-service");
-    // const upc = 1;
-    // const originFarmerID = 1;
-    // const originFarmName = "bbb";
-    // const originFarmInformation = "ddd";
-    // const originFarmLatitude = "22";
-    // const originFarmLongitude = "33";
-    // const productNotes = "333";
-    console.log(
-      this.state.coffee.upc,
-      this.state.coffee.originFarmerID,
-      this.state.coffee.originFarmerName,
-      this.state.coffee.originFarmInformation,
-      this.state.coffee.originFarmLatitude,
-      this.state.coffee.originFarmLongitude,
-      this.state.coffee.productNotes
-    );
     try {
       await ethereumService.harvestItem(
         this.state.coffee.upc,
@@ -68,15 +52,6 @@ class App extends Component {
         this.state.coffee.originFarmLongitude,
         this.state.coffee.productNotes
       );
-      // await ethereumService.harvestItem(
-      //   upc,
-      //   originFarmerID,
-      //   originFarmName,
-      //   originFarmInformation,
-      //   originFarmLatitude,
-      //   originFarmLongitude,
-      //   productNotes
-      // );
     } catch (error) {
       console.log(error);
     }
@@ -88,12 +63,10 @@ class App extends Component {
     const ethereumService = ServiceFactory.get("ethereum-service");
 
     try {
-      await ethereumService.processItem(this.state.upc);
+      await ethereumService.processItem(this.state.coffee.upc);
     } catch (error) {
       console.log(error);
     }
-
-    this.props.appState(this.state.upc);
   };
 
   onPackItem = async (event) => {
@@ -106,8 +79,6 @@ class App extends Component {
     } catch (error) {
       console.log(error);
     }
-
-    this.props.appState(this.state.upc);
   };
 
   onSellItem = async (event) => {
@@ -118,13 +89,11 @@ class App extends Component {
     try {
       await ethereumService.sellItem(
         this.state.coffee.upc,
-        this.state.coffee.price
+        this.state.coffee.productPrice
       );
     } catch (error) {
       console.log(error);
     }
-
-    this.props.appState(this.state.upc);
   };
 
   handleChange = (event) => {

@@ -74,7 +74,6 @@ class EthereumService {
     const signer = this.App.web3Provider.getSigner();
     const network = await this.App.web3Provider.getNetwork();
     const networkID = "5777";
-    console.log(SupplyChainArtifact.networks[networkID]);
     const contractAddress = SupplyChainArtifact.networks[networkID].address;
     this.App.contracts.SupplyChain = new ethers.Contract(
       contractAddress,
@@ -151,7 +150,8 @@ class EthereumService {
 
   async sellItem(upc, cost) {
     const { sellItem } = this.App.contracts.SupplyChain;
-    const price = ethers.utils.formatUnits(cost, "wei");
+    let price = cost * 1000000000000000000;
+    price = price.toString();
     try {
       const transaction = await sellItem(upc, price, {
         from: this.App.metamaskAccountID,
