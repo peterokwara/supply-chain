@@ -15,18 +15,21 @@ class ProductOverview extends Component {
             inputName="sku"
             inputValue={this.props.sku}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.sku}
           />
           <Label name="UPC" />
           <Input
             inputName="upc"
             inputValue={this.props.upc}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.upc}
           />
           <Label name="Current Owner ID" />
           <Input
             inputName="ownerID"
             inputValue={this.props.ownerID}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.ownerID}
           />
           <div className="flex flex-row pt-2 flex-wrap">
             <Button

@@ -7,6 +7,8 @@ class Input extends Component {
         value={this.props.inputValue}
         onChange={this.props.inputChange}
         name={this.props.inputName}
+        defaultValue={this.props.inputDefault}
+        onBlur={this.props.handleBlur}
       ></input>
     );
   }

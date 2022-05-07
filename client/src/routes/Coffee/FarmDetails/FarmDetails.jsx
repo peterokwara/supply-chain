@@ -33,48 +33,56 @@ class FarmDetails extends Component {
             inputName="upc"
             inputValue={this.props.upc}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.upc}
           />
           <Label name="Farmer ID" />
           <Input
             inputName="originFarmerID"
             inputValue={this.props.originFarmerID}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.originFarmerID}
           />
           <Label name="Farm Name" />
           <Input
             inputName="originFarmerName"
             inputValue={this.props.originFarmerName}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.originFarmerName}
           />
           <Label name="Farm Information" />
           <Input
             inputName="originFarmInformation"
             inputValue={this.props.originFarmInformation}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.originFarmInformation}
           />
           <Label name="Farm Longitude" />
           <Input
             inputName="originFarmLongitude"
             inputValue={this.props.originFarmLongitude}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.originFarmLongitude}
           />
           <Label name="Farm Latitude" />
           <Input
             inputName="originFarmLatitude"
             inputValue={this.props.originFarmLatitude}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.originFarmLatitude}
           />
           <Label name="Price" />
           <Input
             inputName="productPrice"
             inputValue={this.props.productPrice}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.productPrice}
           />
           <Label name="Product Notes" />
           <Input
             inputName="productNotes"
             inputValue={this.props.productNotes}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.productNotes}
           />
           <div className="flex flex-row pt-2 flex-wrap">
             <Button

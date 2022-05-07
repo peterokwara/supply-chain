@@ -15,30 +15,35 @@ class ProductDetails extends Component {
             inputName="upc"
             inputValue={this.props.upc}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.upc}
           />
           <Label name="Product Notes" />
           <Input
             inputName="productNotes"
             inputValue={this.props.productNotes}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.productNotes}
           />
           <Label name="Product Price" />
           <Input
             inputName="productPrice"
             inputValue={this.props.productPrice}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.productPrice}
           />
           <Label name="Distributor ID" />
           <Input
             inputName="distributorID"
             inputValue={this.props.distributorID}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.distributorID}
           />
           <Label name="Retailer ID" />
           <Input
             inputName="retailerID"
             inputValue={this.props.retailerID}
             inputChange={this.props.handleChange}
+            inputDefault={this.props.appState.retailerID}
           />
           <div className="flex flex-row pt-2 flex-wrap">
             <Button
