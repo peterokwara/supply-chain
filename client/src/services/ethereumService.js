@@ -64,6 +64,7 @@ class EthereumService {
     // Retrieve accounts
     const accounts = await this.App.web3Provider.listAccounts();
     this.App.metamaskAccountID = accounts[0];
+    return accounts[0];
   }
 
   /**
@@ -163,12 +164,89 @@ class EthereumService {
       console.log(error);
     }
   }
-  async buyItem(upc) {}
-  async shipItem(upc) {}
-  async receiveItem(upc) {}
-  async purchaseItem(upc) {}
-  async fetchItemBufferOne(upc) {}
-  async fetchItemBufferTwo(upc) {}
+  async buyItem(upc) {
+    const { buyItem } = this.App.contracts.SupplyChain;
+    let walletValue = 1 * 1000000000000000000;
+    walletValue = walletValue.toString();
+    try {
+      const transaction = await buyItem(upc, {
+        from: this.App.metamaskAccountID,
+        value: walletValue,
+        gasLimit: 4712388,
+        gasPrice: 0,
+      });
+      await transaction.wait();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async shipItem(upc) {
+    const { shipItem } = this.App.contracts.SupplyChain;
+    try {
+      const transaction = await shipItem(upc, {
+        from: this.App.metamaskAccountID,
+        gasLimit: 4712388,
+        gasPrice: 0,
+      });
+      await transaction.wait();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async receiveItem(upc) {
+    const { receiveItem } = this.App.contracts.SupplyChain;
+    try {
+      const transaction = await receiveItem(upc, {
+        from: this.App.metamaskAccountID,
+        gasLimit: 4712388,
+        gasPrice: 0,
+      });
+      await transaction.wait();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async purchaseItem(upc) {
+    const { purchaseItem } = this.App.contracts.SupplyChain;
+    try {
+      const transaction = await purchaseItem(upc, {
+        from: this.App.metamaskAccountID,
+        gasLimit: 4712388,
+        gasPrice: 0,
+      });
+      await transaction.wait();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async fetchItemBufferOne(upc) {
+    const { fetchItemBufferOne } = this.App.contracts.SupplyChain;
+    try {
+      const transaction = await fetchItemBufferOne(upc, {
+        from: this.App.metamaskAccountID,
+        gasLimit: 4712388,
+        gasPrice: 0,
+      });
+      await transaction.wait();
+      console.log(transaction);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async fetchItemBufferTwo(upc) {
+    const { fetchItemBufferTwo } = this.App.contracts.SupplyChain;
+    try {
+      const transaction = await fetchItemBufferTwo(upc, {
+        from: this.App.metamaskAccountID,
+        gasLimit: 4712388,
+        gasPrice: 0,
+      });
+      await transaction.wait();
+      console.log(transaction);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = EthereumService;

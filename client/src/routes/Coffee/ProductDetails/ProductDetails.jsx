@@ -10,32 +10,56 @@ class ProductDetails extends Component {
       <div className="overflow-auto">
         <PageHeading name="Product Details" />
         <form className="flex flex-col px-4 md:px-12 lg:px-40 overflow-auto">
+          <Label name="UPC" />
+          <Input
+            inputName="upc"
+            inputValue={this.props.upc}
+            inputChange={this.props.handleChange}
+          />
           <Label name="Product Notes" />
-          <Input />
+          <Input
+            inputName="productNotes"
+            inputValue={this.props.productNotes}
+            inputChange={this.props.handleChange}
+          />
           <Label name="Product Price" />
-          <Input />
+          <Input
+            inputName="productPrice"
+            inputValue={this.props.productPrice}
+            inputChange={this.props.handleChange}
+          />
           <Label name="Distributor ID" />
-          <Input />
+          <Input
+            inputName="distributorID"
+            inputValue={this.props.distributorID}
+            inputChange={this.props.handleChange}
+          />
           <Label name="Retailer ID" />
-          <Input />
-          <Label name="Distributor ID" />
-          <Input />
+          <Input
+            inputName="retailerID"
+            inputValue={this.props.retailerID}
+            inputChange={this.props.handleChange}
+          />
           <div className="flex flex-row pt-2 flex-wrap">
             <Button
-              name="Buy"
-              styles="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
+              buttonName="Buy"
+              buttonClick={this.props.onBuyItem}
+              buttonStyle="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
             />
             <Button
-              name="Ship"
-              styles="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
+              buttonName="Ship"
+              buttonClick={this.props.onShipItem}
+              buttonStyle="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
             />
             <Button
-              name="Receive"
-              styles="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
+              buttonName="Receive"
+              buttonClick={this.props.onReceiveItem}
+              buttonStyle="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
             />
             <Button
-              name="Purchase"
-              styles="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
+              buttonName="Purchase"
+              buttonClick={this.props.onPurchaseItem}
+              buttonStyle="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
             />
           </div>
         </form>

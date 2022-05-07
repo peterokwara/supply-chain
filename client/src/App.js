@@ -28,11 +28,18 @@ class App extends Component {
         originFarmLongitude: null,
         productNotes: null,
         productPrice: 0,
+        distributorID: "0x0000000000000000000000000000000000000000",
+        retailerID: "0x0000000000000000000000000000000000000000",
+        consumerID: "0x0000000000000000000000000000000000000000",
       },
       showSpinner: true,
       showModal: true,
     };
 
+    this.onBuyItem = this.onBuyItem.bind(this);
+    this.onShipItem = this.onShipItem.bind(this);
+    this.onReceiveItem = this.onReceiveItem.bind(this);
+    this.onPurchaseItem = this.onPurchaseItem.bind(this);
     this.onHarvestItem = this.onHarvestItem.bind(this);
     this.onProcessItem = this.onProcessItem.bind(this);
     this.onPackItem = this.onPackItem.bind(this);
@@ -96,6 +103,56 @@ class App extends Component {
     }
   };
 
+  onBuyItem = async (event) => {
+    event.preventDefault();
+
+    const ethereumService = ServiceFactory.get("ethereum-service");
+
+    try {
+      await ethereumService.buyItem(this.state.coffee.upc);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  onShipItem = async (event) => {
+    event.preventDefault();
+
+    const ethereumService = ServiceFactory.get("ethereum-service");
+
+    try {
+      // Add distributor?
+      await ethereumService.shipItem(this.state.coffee.upc);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  onReceiveItem = async (event) => {
+    event.preventDefault();
+
+    const ethereumService = ServiceFactory.get("ethereum-service");
+
+    try {
+      // Add retailer?
+      await ethereumService.receiveItem(this.state.coffee.upc);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  onPurchaseItem = async (event) => {
+    event.preventDefault();
+
+    const ethereumService = ServiceFactory.get("ethereum-service");
+
+    try {
+      // Add consumer?
+      await ethereumService.purchaseItem(this.state.coffee.upc);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;
@@ -114,7 +171,8 @@ class App extends Component {
 
     const ethereumService = ServiceFactory.get("ethereum-service");
     await ethereumService.initWeb3();
-    await ethereumService.getMetamaskAccountID();
+    const accounts = await ethereumService.getMetamaskAccountID();
+    this.state.coffee.ownerID = accounts[0];
     await ethereumService.initSupplyChain();
   }
 
@@ -141,9 +199,27 @@ class App extends Component {
             <Route
               exact
               path="/product-overview"
-              element={<ProductOverview />}
+              element={
+                <ProductOverview
+                  handleChange={this.handleChange}
+                  appState={this.state.coffee}
+                />
+              }
             />
-            <Route exact path="/product-details" element={<ProductDetails />} />
+            <Route
+              exact
+              path="/product-details"
+              element={
+                <ProductDetails
+                  onBuyItem={this.onBuyItem}
+                  onShipItem={this.onShipItem}
+                  onReceiveItem={this.onReceiveItem}
+                  onPurchaseItem={this.onPurchaseItem}
+                  handleChange={this.handleChange}
+                  appState={this.state.coffee}
+                />
+              }
+            />
             <Route
               exact
               path="/transaction-history"
