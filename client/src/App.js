@@ -16,7 +16,7 @@ import Modal from "./components/Common/Modal/Modal";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = JSON.parse(window.localStorage.getItem("state")) || {
       coffee: {
         sku: 0,
         upc: 0,
@@ -46,7 +46,13 @@ class App extends Component {
     this.onSellItem = this.onSellItem.bind(this);
     this.onFetchItemBufferOne = this.onFetchItemBufferOne.bind(this);
     this.onFetchItemBufferTwo = this.onFetchItemBufferTwo.bind(this);
+    this.setState = this.setState.bind(this);
   }
+
+  setState = (state) => {
+    window.localStorage.setItem("state", JSON.stringify(state));
+    super.setState(state);
+  };
 
   onHarvestItem = async (event) => {
     event.preventDefault();
