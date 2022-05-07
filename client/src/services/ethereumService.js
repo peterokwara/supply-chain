@@ -92,6 +92,15 @@ class EthereumService {
     originFarmLongitude,
     productNotes
   ) {
+    console.log(
+      upc,
+      originFarmerID,
+      originFarmName,
+      originFarmInformation,
+      originFarmLatitude,
+      originFarmLongitude,
+      productNotes
+    );
     const { harvestItem } = this.App.contracts.SupplyChain;
     try {
       const transaction = await harvestItem(

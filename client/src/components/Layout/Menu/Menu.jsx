@@ -13,7 +13,7 @@ class Menu extends Component {
   };
   render() {
     return (
-      <div className="flex lg:hidden">
+      <div className="flex lg:hidden md:hidden">
         <nav className="flex flex-col">
           <svg
             onClick={this.toggleMenu}
@@ -46,11 +46,7 @@ class Menu extends Component {
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
-            <Link
-              styles="px-2 text-s"
-              link="/farm-details"
-              name="Farm Details"
-            />
+            <Link styles="px-2 text-s" link="/" name="Farm Details" />
             <Link
               styles="px-2 text-s"
               link="/product-details"

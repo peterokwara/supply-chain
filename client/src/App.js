@@ -1,8 +1,8 @@
 import FarmDetails from "./routes/Coffee/FarmDetails/FarmDetails";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Component } from "react";
-import ServiceFactory from "./factories/serviceFactory";
 import EthereumService from "./services/ethereumService";
+import ServiceFactory from "./factories/serviceFactory";
 import Header from "./components/Layout/Header/Header";
 import Footer from "./components/Layout/Footer/Footer";
 import ProductOverview from "./routes/Coffee/ProductOverview/ProductOverview";
@@ -18,54 +18,77 @@ class App extends Component {
     super(props);
     this.state = {
       coffee: {
-        productID: "",
-        sku: "",
-        upc: "",
-        ownerID: "",
-        originFarmerID: "",
-        originFarmerName: "",
-        originFarmInformation: "",
-        originFarmLatitude: "",
-        originFarmLongitude: "",
-        productNotes: "",
-        itemState: "",
-        productPrice: "",
+        sku: 0,
+        upc: 0,
+        ownerID: "0x0000000000000000000000000000000000000000",
+        originFarmerID: "0x0000000000000000000000000000000000000000",
+        originFarmName: null,
+        originFarmInformation: null,
+        originFarmLatitude: null,
+        originFarmLongitude: null,
+        productNotes: null,
+        productPrice: 0,
       },
       showSpinner: true,
       showModal: true,
     };
+
+    this.onHarvestItem = this.onHarvestItem.bind(this);
+    this.onProcessItem = this.onProcessItem.bind(this);
+    this.onPackItem = this.onPackItem.bind(this);
+    this.onSellItem = this.onSellItem.bind(this);
   }
 
   onHarvestItem = async (event) => {
     event.preventDefault();
-    const EthereumService = ServiceFactory.get("ethereum-service");
-
+    const ethereumService = ServiceFactory.get("ethereum-service");
+    // const upc = 1;
+    // const originFarmerID = 1;
+    // const originFarmName = "bbb";
+    // const originFarmInformation = "ddd";
+    // const originFarmLatitude = "22";
+    // const originFarmLongitude = "33";
+    // const productNotes = "333";
+    console.log(
+      this.state.coffee.upc,
+      this.state.coffee.originFarmerID,
+      this.state.coffee.originFarmerName,
+      this.state.coffee.originFarmInformation,
+      this.state.coffee.originFarmLatitude,
+      this.state.coffee.originFarmLongitude,
+      this.state.coffee.productNotes
+    );
     try {
-      await EthereumService.getMetamaskAccountID();
-      await EthereumService.initSupplyChain();
-      await EthereumService.harvestItem(
+      await ethereumService.harvestItem(
         this.state.coffee.upc,
         this.state.coffee.originFarmerID,
-        this.state.coffee.originFarmName,
+        this.state.coffee.originFarmerName,
         this.state.coffee.originFarmInformation,
         this.state.coffee.originFarmLatitude,
         this.state.coffee.originFarmLongitude,
         this.state.coffee.productNotes
       );
+      // await ethereumService.harvestItem(
+      //   upc,
+      //   originFarmerID,
+      //   originFarmName,
+      //   originFarmInformation,
+      //   originFarmLatitude,
+      //   originFarmLongitude,
+      //   productNotes
+      // );
     } catch (error) {
       console.log(error);
     }
-
-    this.props.appState(this.state.upc);
   };
 
   onProcessItem = async (event) => {
     event.preventDefault();
 
-    const EthereumService = ServiceFactory.get("ethereum-service");
+    const ethereumService = ServiceFactory.get("ethereum-service");
 
     try {
-      await EthereumService.processItem(this.state.upc);
+      await ethereumService.processItem(this.state.upc);
     } catch (error) {
       console.log(error);
     }
@@ -76,10 +99,10 @@ class App extends Component {
   onPackItem = async (event) => {
     event.preventDefault();
 
-    const EthereumService = ServiceFactory.get("ethereum-service");
+    const ethereumService = ServiceFactory.get("ethereum-service");
 
     try {
-      await EthereumService.packItem(this.state.coffee.upc);
+      await ethereumService.packItem(this.state.coffee.upc);
     } catch (error) {
       console.log(error);
     }
@@ -90,10 +113,10 @@ class App extends Component {
   onSellItem = async (event) => {
     event.preventDefault();
 
-    const EthereumService = ServiceFactory.get("ethereum-service");
+    const ethereumService = ServiceFactory.get("ethereum-service");
 
     try {
-      await EthereumService.sellItem(
+      await ethereumService.sellItem(
         this.state.coffee.upc,
         this.state.coffee.price
       );
@@ -119,6 +142,11 @@ class App extends Component {
       "ethereum-service",
       () => new EthereumService()
     );
+
+    const ethereumService = ServiceFactory.get("ethereum-service");
+    await ethereumService.initWeb3();
+    await ethereumService.getMetamaskAccountID();
+    await ethereumService.initSupplyChain();
   }
 
   render() {
@@ -141,7 +169,6 @@ class App extends Component {
                 />
               }
             />
-            <Route exact path="/farm-details" element={<FarmDetails />} />
             <Route
               exact
               path="/product-overview"
