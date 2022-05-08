@@ -16,7 +16,7 @@ import Modal from "./components/Common/Modal/Modal";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = JSON.parse(window.localStorage.getItem("state")) || {
       coffee: {
         sku: 0,
         upc: 0,
@@ -81,7 +81,7 @@ class App extends Component {
   }
 
   setState = (state) => {
-    window.localStorage.setItem("state", JSON.stringify(state));
+    window.localStorage.setItem("state", JSON.stringify(this.state));
     super.setState(state);
   };
 
