@@ -20,6 +20,7 @@ Ethereum Dap for Tracking Items through Supply Chain. Part of the Udacity Blockc
 
 - [About the Website](#about-the-website)
 - [Technical](#technical)
+- [Design](#design)
 - [Licence](#license)
 - [Versions](#versions)
 - [Contact Information](#contact-information)
@@ -56,7 +57,7 @@ This project uses: - ReactJS - Tailwind CSS - CSS - JS - NodeJS - EthersJS - Tru
 
 Ensure node is running on `v16`. Do this, ensure you have [node version manager](https://github.com/nvm-sh/nvm) installed. Once installed you can then run.
 
-```
+```bash
 nvm install 16
 nvm use 16
 ```
@@ -83,7 +84,7 @@ yarn start
 
 Ensure node is running on `v10`. Do this, ensure you have [node version manager](https://github.com/nvm-sh/nvm) installed. Once installed you can then run.
 
-```
+```bash
 nvm install 10
 nvm use 10
 ```
@@ -126,13 +127,39 @@ To run the test cases within the truffle development environment, run:
 test
 ```
 
+### Design
+
+An activity diagram shows busines and software processes as a progression of actions.
+
+<p align="center">
+  <img src="./assets/uml_diagram/activity_diagram.png"/>
+</p>
+
+A class diagram describes the attributed and operations fo a class and also the constraints imposed on the system.
+
+<p align="center">
+  <img src="./assets/uml_diagram/class_diagram.png"/>
+</p>
+
+A sequence diagram is an interaction diagram that details how operations are carried out. They captrue the interaction between objects in the contrext of a collaboration.
+
+<p align="center">
+  <img src="./assets/uml_diagram/sequence_diagram.png"/>
+</p>
+
+A state diagram consists of states, transitions, events and activities. They represent the dynamic view of the system.
+
+<p align="center">
+  <img src="./assets/uml_diagram/state_diagram.png"/>
+</p>
+
 #### CONTRIBUTING
 
 I would/ We'd love to have your help in making **supply-chain** better. The project is still very incomplete, but if there's an issue you'd like to see addressed sooner rather than later, let me(/us) know.
 
 Before you contribute though read the contributing guide here: [Contributing.md](https://github.com/peterokwara/supply-chain/blob/master/CONTRIBUTING.md)
 
-For any concerns, please open an [issue](https://github.com/peterokwara/supply-chain/issues), or JUST, [fork the project and send a pull request](https://github.com/peterokwara/supply-chain/pulls).
+For any concerns, please open an [issue](https://github.com/peterokwara/supply-chain/issues), or just, [fork the project and send a pull request](https://github.com/peterokwara/supply-chain/pulls).
 
 <hr>
 
