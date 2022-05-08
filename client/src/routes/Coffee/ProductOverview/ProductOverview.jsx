@@ -3,7 +3,8 @@ import Button from "../../../components/Common/Button/Button";
 import Input from "../../../components/Forms/Input/Input";
 import Label from "../../../components/Forms/Label/Label";
 import PageHeading from "../../../components/Common/PageHeading/PageHeading";
-import Response from "../../../components/Forms/Response/Response";
+import FetchData from "../../../components/Forms/FetchData/FetchData";
+import Response from "../../../components/Forms/FetchData/FetchData";
 
 class ProductOverview extends Component {
   render() {
@@ -44,45 +45,10 @@ class ProductOverview extends Component {
               buttonStyle="bg-cyan-600 text-base text-white mx-2 px-8 py-2 my-2 text-center rounded-full shadow font-sans font-normal"
             />
           </div>
-          <div>
-            <h1>Fetch data 1</h1>
-            Item SKU {this.props.responseBufferOne.itemSKU}
-            <br />
-            Item UPC {this.props.responseBufferOne.itemUPC}
-            <br />
-            Owner ID {this.props.responseBufferOne.ownerID}
-            <br />
-            Farmer ID {this.props.responseBufferOne.originFarmerID}
-            <br />
-            Farm Name {this.props.responseBufferOne.originFarmName}
-            <br />
-            Farm Information{" "}
-            {this.props.responseBufferOne.originFarmInformation}
-            <br />
-            Farm Latitude {this.props.responseBufferOne.originFarmLatitude}
-            <br />
-            Farm Longitude {this.props.responseBufferOne.originFarmLongitude}
-          </div>
-          <div>
-            <h1>Fetch data 2</h1>
-            Item SKU {this.props.responseBufferOne.itemSKU}
-            <br />
-            Item UPC {this.props.responseBufferOne.itemUPC}
-            <br />
-            Owner ID {this.props.responseBufferOne.productID}
-            <br />
-            Farmer ID {this.props.responseBufferOne.productNotes}
-            <br />
-            Farm Name {this.props.responseBufferOne.productPrice}
-            <br />
-            Farm Information {this.props.responseBufferOne.itemState}
-            <br />
-            Farm Latitude {this.props.responseBufferOne.distributorID}
-            <br />
-            Farm Longitude {this.props.responseBufferOne.retailerID}
-            <br />
-            Farm Longitude {this.props.responseBufferOne.consumerID}
-          </div>
+          <FetchData
+            responseBufferOne={this.props.responseBufferOne}
+            responseBufferTwo={this.props.responseBufferTwo}
+          />
         </form>
       </div>
     );
