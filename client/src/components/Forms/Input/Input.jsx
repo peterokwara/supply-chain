@@ -1,4 +1,8 @@
 import { Component } from "react";
+
+/**
+ * Component which renders an input field
+ */
 class Input extends Component {
   render() {
     return (

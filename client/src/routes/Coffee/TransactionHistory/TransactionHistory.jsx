@@ -5,6 +5,9 @@ import Input from "../../../components/Forms/Input/Input";
 import Label from "../../../components/Forms/Label/Label";
 import PageHeading from "../../../components/Common/PageHeading/PageHeading";
 
+/**
+ * Component which renders the transaction history page
+ */
 class TransactionHistory extends Component {
   render() {
     return (

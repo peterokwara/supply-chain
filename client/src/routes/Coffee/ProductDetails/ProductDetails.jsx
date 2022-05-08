@@ -4,6 +4,9 @@ import Input from "../../../components/Forms/Input/Input";
 import Label from "../../../components/Forms/Label/Label";
 import PageHeading from "../../../components/Common/PageHeading/PageHeading";
 
+/**
+ * Component which renders the product details page
+ */
 class ProductDetails extends Component {
   render() {
     return (

@@ -1,6 +1,9 @@
 import { Component } from "react";
 import "./Spinner.css";
 
+/**
+ * Component which renders a spinner
+ */
 class Spinner extends Component {
   render() {
     return (

@@ -1,4 +1,8 @@
 import { Component } from "react";
+
+/**
+ * Component which renders transaction data
+ */
 class TransactionData extends Component {
   render() {
     let harvestedEvents;

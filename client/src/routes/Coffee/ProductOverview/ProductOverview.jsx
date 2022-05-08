@@ -6,6 +6,9 @@ import PageHeading from "../../../components/Common/PageHeading/PageHeading";
 import FetchData from "../../../components/Forms/FetchData/FetchData";
 import Response from "../../../components/Forms/FetchData/FetchData";
 
+/**
+ * Component which renders the product overview page
+ */
 class ProductOverview extends Component {
   render() {
     return (

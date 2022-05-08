@@ -4,6 +4,9 @@ import Link from "../../Common/Link/Link";
 import ServiceFactory from "../../../factories/serviceFactory";
 import Menu from "../Menu/Menu";
 
+/**
+ * Component which renders the header component
+ */
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +14,10 @@ class Header extends Component {
     this.connectWallet = this.connectWallet.bind(this);
   }
 
+  /**
+   * Initialize web3 when connect wallet is clicked
+   * @param {*} event
+   */
   connectWallet = (event) => {
     event.preventDefault();
     const EthereumService = ServiceFactory.get("ethereum-service");

@@ -7,14 +7,17 @@ import Spinner from "../../../components/Common/Spinner/Spinner";
 import Modal from "../../../components/Common/Modal/Modal";
 import ServiceFactory from "../../../factories/serviceFactory";
 
+/**
+ * Component which renders the farm details page
+ */
 class FarmDetails extends Component {
-  toggleSpinner = () => {
-    this.setState({ showSpinner: !this.state.showSpinner });
-  };
-  toggleModal = async (e) => {
-    e.preventDefault();
-    this.setState({ showModal: !this.state.showModal });
-  };
+  // toggleSpinner = () => {
+  //   this.setState({ showSpinner: !this.state.showSpinner });
+  // };
+  // toggleModal = async (e) => {
+  //   e.preventDefault();
+  //   this.setState({ showModal: !this.state.showModal });
+  // };
 
   render() {
     return (

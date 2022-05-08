@@ -1,4 +1,7 @@
 import { Component } from "react";
+/**
+ * Component which renders a button
+ */
 class Button extends Component {
   render() {
     return (

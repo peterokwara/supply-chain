@@ -1,9 +1,14 @@
 import { Component } from "react";
+
+/**
+ * Component which renders the fetch buffer details
+ */
 class Response extends Component {
   render() {
     let responseElementForBufferOne;
     let responseElementForBufferTwo;
 
+    // Render buffer one details only if itemUpc exists
     if (this.props.responseBufferOne.itemUPC) {
       responseElementForBufferOne = (
         <div className="pt-4">
@@ -30,6 +35,7 @@ class Response extends Component {
       );
     }
 
+    // Render buffer two details only if itemUpc exists
     if (this.props.responseBufferTwo.itemUPC) {
       responseElementForBufferTwo = (
         <div className="pt-4">

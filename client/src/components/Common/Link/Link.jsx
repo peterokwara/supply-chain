@@ -1,4 +1,8 @@
 import { Component } from "react";
+
+/**
+ * Component which renders a link
+ */
 class Link extends Component {
   render() {
     return (

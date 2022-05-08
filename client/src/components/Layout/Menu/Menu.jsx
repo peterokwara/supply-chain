@@ -2,15 +2,24 @@ import { Component } from "react";
 import Link from "../../Common/Link/Link";
 import "./Menu.css";
 
+/**
+ * Component which renders the hamburger menu
+ */
 class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = { menuOpen: true };
   }
+
+  /**
+   * Hide or show the hamburger menu
+   * @param e onClick event
+   */
   toggleMenu = (e) => {
     e.preventDefault();
     this.setState({ menuOpen: !this.state.menuOpen });
   };
+
   render() {
     return (
       <div className="flex lg:hidden md:hidden">
