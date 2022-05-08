@@ -164,7 +164,23 @@ A state diagram consists of states, transitions, events and activities. They rep
 
 ### Testing
 
-#### CONTRIBUTING
+To test the full application (Local Node and UI):
+
+- Run the Frontend and Backend as specified in the technology section.
+- Ensure the smart contract is deployed to your local test node. In my case, I used Ganache which runs on port **7545**
+- Import your account to Metamask. To do this, ensure you have metamask installed. Import the seed phrase that is provided by the local node into Metamask and ensure the accounts show up in the wallet ui.
+- Use the first account (normally marked as **Account 1**) to connect to the website. For some reason, it doesn't work with any other account, only the first account.
+- Ensure your wallet is connected by clicking **connect wallet** to **Account 1**.
+- Try going through the whole coffee export process by clicking the buttons (harvest, process, pack, sell) from the Farm Details page.
+- Move to the next page and do the same (buy, ship, receive, purchase) from the Product Details page.
+- Try to fetch items from the buffer from the Product Overview page.
+- Try to fetch the transaction events from the Transactions History page.
+
+Troubleshooting
+
+- Remove data from localstorage. State data is stored there and see if the problem goes away.
+
+### CONTRIBUTING
 
 I would/ We'd love to have your help in making **supply-chain** better. The project is still very incomplete, but if there's an issue you'd like to see addressed sooner rather than later, let me(/us) know.
 
