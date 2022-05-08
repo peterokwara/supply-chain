@@ -244,7 +244,7 @@ class App extends Component {
             itemState: response[5]._hex,
             distributorID: response[6],
             retailerID: response[7],
-            consumerID: response[7],
+            consumerID: response[8],
           },
         });
       }

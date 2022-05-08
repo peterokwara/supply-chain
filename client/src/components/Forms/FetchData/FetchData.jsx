@@ -7,7 +7,7 @@ class Response extends Component {
     if (this.props.responseBufferOne.itemUPC) {
       responseElementForBufferOne = (
         <div className="pt-4">
-          <h1 className="text-xl font-bold">Fetch data 1</h1>
+          <h1 className="text-xl font-bold">Fetch Item Data 1</h1>
           <p className="break-all">
             Item SKU: {this.props.responseBufferOne.itemSKU}
             <br />
@@ -33,7 +33,7 @@ class Response extends Component {
     if (this.props.responseBufferTwo.itemUPC) {
       responseElementForBufferTwo = (
         <div className="pt-4">
-          <h1 className="text-xl font-bold">Fetch data 2</h1>
+          <h1 className="text-xl font-bold">Fetch Item Data 2</h1>
           <p className="break-all">
             Item SKU: {this.props.responseBufferTwo.itemSKU}
             <br />
