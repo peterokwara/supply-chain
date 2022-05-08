@@ -250,13 +250,65 @@ class EthereumService {
   }
 
   async fetchEvents() {
-    const eventFilter =
+    let events = {
+      Harvested: [],
+      Processed: [],
+      ForSale: [],
+      Sold: [],
+      Shipped: [],
+      Received: [],
+      Purchased: [],
+    };
+
+    // Fetch harvested events
+    const eventFilterHarvested =
       await this.App.contracts.SupplyChain.filters.Harvested();
-    const events = await this.App.contracts.SupplyChain.queryFilter(
-      eventFilter
+    events.Harvested = await this.App.contracts.SupplyChain.queryFilter(
+      eventFilterHarvested
     );
-    console.log(events);
-    // return events;
+
+    // Fetch processed events
+    const eventFilterProcessed =
+      await this.App.contracts.SupplyChain.filters.Processed();
+    events.Processed = await this.App.contracts.SupplyChain.queryFilter(
+      eventFilterProcessed
+    );
+
+    // Fetch for sale events
+    const eventFilterForSale =
+      await this.App.contracts.SupplyChain.filters.ForSale();
+    events.ForSale = await this.App.contracts.SupplyChain.queryFilter(
+      eventFilterForSale
+    );
+
+    // Fetch sold events
+    const eventFilterSold = await this.App.contracts.SupplyChain.filters.Sold();
+    events.Sold = await this.App.contracts.SupplyChain.queryFilter(
+      eventFilterSold
+    );
+
+    // Fetch shipped events
+    const eventFilterShipped =
+      await this.App.contracts.SupplyChain.filters.Shipped();
+    events.Shipped = await this.App.contracts.SupplyChain.queryFilter(
+      eventFilterShipped
+    );
+
+    // Fetch received events
+    const eventFilterReceived =
+      await this.App.contracts.SupplyChain.filters.Received();
+    events.Received = await this.App.contracts.SupplyChain.queryFilter(
+      eventFilterReceived
+    );
+
+    // Fetch purchase events
+    const eventFilterPurchased =
+      await this.App.contracts.SupplyChain.filters.Purchased();
+    events.Purchased = await this.App.contracts.SupplyChain.queryFilter(
+      eventFilterPurchased
+    );
+
+    return events;
   }
 }
 

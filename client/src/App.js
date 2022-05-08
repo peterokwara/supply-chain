@@ -53,6 +53,15 @@ class App extends Component {
         retailerID: "",
         consumerID: "",
       },
+      events: {
+        Harvested: [],
+        Processed: [],
+        ForSale: [],
+        Sold: [],
+        Shipped: [],
+        Received: [],
+        Purchased: [],
+      },
       showSpinner: true,
       showModal: true,
     };
@@ -249,7 +258,20 @@ class App extends Component {
 
     const ethereumService = ServiceFactory.get("ethereum-service");
     try {
-      await ethereumService.fetchEvents();
+      const upcEvents = await ethereumService.fetchEvents();
+      console.log("UPC events are", upcEvents);
+      this.setState({
+        events: {
+          ...this.state.events,
+          Harvested: upcEvents.Harvested,
+          Processed: upcEvents.Processed,
+          ForSale: upcEvents.ForSale,
+          Sold: upcEvents.Sold,
+          Shipped: upcEvents.Shipped,
+          Received: upcEvents.Received,
+          Purchased: upcEvents.Purchased,
+        },
+      });
     } catch (error) {
       console.log(error);
     }
@@ -329,7 +351,10 @@ class App extends Component {
               exact
               path="/transaction-history"
               element={
-                <TransactionHistory onFetchEvents={this.onFetchEvents} />
+                <TransactionHistory
+                  onFetchEvents={this.onFetchEvents}
+                  upcEvents={this.state.events}
+                />
               }
             />
           </Routes>

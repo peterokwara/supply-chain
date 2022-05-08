@@ -8,7 +8,7 @@ class Response extends Component {
       responseElementForBufferOne = (
         <div className="pt-4">
           <h1 className="text-xl font-bold">Fetch data 1</h1>
-          <p className="text-ellipsis">
+          <p className="break-all">
             Item SKU: {this.props.responseBufferOne.itemSKU}
             <br />
             Item UPC: {this.props.responseBufferOne.itemUPC}
@@ -34,7 +34,7 @@ class Response extends Component {
       responseElementForBufferTwo = (
         <div className="pt-4">
           <h1 className="text-xl font-bold">Fetch data 2</h1>
-          <p className="text-ellipsis">
+          <p className="break-all">
             Item SKU: {this.props.responseBufferTwo.itemSKU}
             <br />
             Item UPC: {this.props.responseBufferTwo.itemUPC}
