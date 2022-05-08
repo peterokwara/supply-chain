@@ -163,9 +163,9 @@ class EthereumService {
       console.log(error);
     }
   }
-  async buyItem(upc) {
+  async buyItem(upc, cost) {
     const { buyItem } = this.App.contracts.SupplyChain;
-    let walletValue = 1 * 1000000000000000000;
+    let walletValue = cost * 1000000000000000000;
     walletValue = walletValue.toString();
     try {
       const transaction = await buyItem(upc, {

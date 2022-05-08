@@ -27,7 +27,7 @@ class App extends Component {
         originFarmLatitude: null,
         originFarmLongitude: null,
         productNotes: null,
-        productPrice: 0,
+        productPrice: null,
         distributorID: "0x0000000000000000000000000000000000000000",
         retailerID: "0x0000000000000000000000000000000000000000",
         consumerID: "0x0000000000000000000000000000000000000000",
@@ -148,7 +148,10 @@ class App extends Component {
     const ethereumService = ServiceFactory.get("ethereum-service");
 
     try {
-      await ethereumService.buyItem(this.state.coffee.upc);
+      await ethereumService.buyItem(
+        this.state.coffee.upc,
+        this.state.coffee.productPrice
+      );
     } catch (error) {
       console.log(error);
     }

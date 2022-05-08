@@ -24,7 +24,7 @@ class ProductDetails extends Component {
             inputChange={this.props.handleChange}
             inputDefault={this.props.appState.productNotes}
           />
-          <Label name="Product Price" />
+          <Label name="Price" />
           <Input
             inputName="productPrice"
             inputValue={this.props.productPrice}
