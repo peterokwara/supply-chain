@@ -21,6 +21,7 @@ Ethereum Dap for Tracking Items through Supply Chain. Part of the Udacity Blockc
 - [About the Website](#about-the-website)
 - [Technical](#technical)
 - [Design](#design)
+- [Testing](#testing)
 - [Licence](#license)
 - [Versions](#versions)
 - [Contact Information](#contact-information)
@@ -129,11 +130,15 @@ test
 
 ### Design
 
+#### Activity diagram
+
 An activity diagram shows busines and software processes as a progression of actions.
 
 <p align="center">
   <img src="./assets/uml_diagram/activity_diagram.png"/>
 </p>
+
+#### Class diagram
 
 A class diagram describes the attributed and operations fo a class and also the constraints imposed on the system.
 
@@ -141,17 +146,23 @@ A class diagram describes the attributed and operations fo a class and also the 
   <img src="./assets/uml_diagram/class_diagram.png"/>
 </p>
 
+#### Sequence diagram
+
 A sequence diagram is an interaction diagram that details how operations are carried out. They captrue the interaction between objects in the contrext of a collaboration.
 
 <p align="center">
   <img src="./assets/uml_diagram/sequence_diagram.png"/>
 </p>
 
+#### State diagram
+
 A state diagram consists of states, transitions, events and activities. They represent the dynamic view of the system.
 
 <p align="center">
   <img src="./assets/uml_diagram/state_diagram.png"/>
 </p>
+
+### Testing
 
 #### CONTRIBUTING
 
