@@ -248,6 +248,16 @@ class EthereumService {
     }
     return transaction;
   }
+
+  async fetchEvents() {
+    const eventFilter =
+      await this.App.contracts.SupplyChain.filters.Harvested();
+    const events = await this.App.contracts.SupplyChain.queryFilter(
+      eventFilter
+    );
+    console.log(events);
+    // return events;
+  }
 }
 
 module.exports = EthereumService;

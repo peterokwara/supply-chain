@@ -67,6 +67,7 @@ class App extends Component {
     this.onSellItem = this.onSellItem.bind(this);
     this.onFetchItemBufferOne = this.onFetchItemBufferOne.bind(this);
     this.onFetchItemBufferTwo = this.onFetchItemBufferTwo.bind(this);
+    this.onFetchEvents = this.onFetchEvents.bind(this);
     this.setState = this.setState.bind(this);
   }
 
@@ -243,6 +244,17 @@ class App extends Component {
     }
   };
 
+  onFetchEvents = async (event) => {
+    event.preventDefault();
+
+    const ethereumService = ServiceFactory.get("ethereum-service");
+    try {
+      await ethereumService.fetchEvents();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;
@@ -316,7 +328,9 @@ class App extends Component {
             <Route
               exact
               path="/transaction-history"
-              element={<TransactionHistory />}
+              element={
+                <TransactionHistory onFetchEvents={this.onFetchEvents} />
+              }
             />
           </Routes>
         </Router>
