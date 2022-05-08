@@ -16,7 +16,7 @@ import Modal from "./components/Common/Modal/Modal";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = JSON.parse(window.localStorage.getItem("state")) || {
+    this.state = {
       coffee: {
         sku: 0,
         upc: 0,
@@ -31,6 +31,27 @@ class App extends Component {
         distributorID: "0x0000000000000000000000000000000000000000",
         retailerID: "0x0000000000000000000000000000000000000000",
         consumerID: "0x0000000000000000000000000000000000000000",
+      },
+      fetchItemBufferOne: {
+        itemSKU: "",
+        itemUPC: "",
+        ownerID: "",
+        originalFarmerID: "",
+        originalFarmerName: "",
+        originFarmInformation: "",
+        originFarmLatitude: "",
+        originFarmLongitude: "",
+      },
+      fetchItemBufferTwo: {
+        itemSKU: "",
+        itemUPC: "",
+        productID: "",
+        productNotes: "",
+        productPrice: "",
+        itemState: "",
+        distributorID: "",
+        retailerID: "",
+        consumerID: "",
       },
       showSpinner: true,
       showModal: true,
@@ -168,7 +189,24 @@ class App extends Component {
 
     try {
       // Add consumer?
-      await ethereumService.fetchItemBufferOne(this.state.coffee.upc);
+      const response = await ethereumService.fetchItemBufferOne(
+        this.state.coffee.upc
+      );
+      if (response) {
+        this.setState({
+          fetchItemBufferOne: {
+            ...this.state.fetchItemBufferOne,
+            itemSKU: response[0]._hex,
+            itemUPC: response[1]._hex,
+            ownerID: response[2],
+            originFarmerID: response[3],
+            originFarmName: response[4],
+            originFarmInformation: response[5],
+            originFarmLatitude: response[6],
+            originFarmLongitude: response[7],
+          },
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -181,7 +219,25 @@ class App extends Component {
 
     try {
       // Add consumer?
-      await ethereumService.fetchItemBufferTwo(this.state.coffee.upc);
+      const response = await ethereumService.fetchItemBufferTwo(
+        this.state.coffee.upc
+      );
+      if (response) {
+        this.setState({
+          fetchItemBufferTwo: {
+            ...this.state.fetchItemBufferTwo,
+            itemSKU: response[0]._hex,
+            itemUPC: response[1]._hex,
+            productID: response[2]._hex,
+            productNotes: response[3],
+            productPrice: response[4]._hex,
+            itemState: response[5]._hex,
+            distributorID: response[6],
+            retailerID: response[7],
+            consumerID: response[7],
+          },
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -205,8 +261,7 @@ class App extends Component {
 
     const ethereumService = ServiceFactory.get("ethereum-service");
     await ethereumService.initWeb3();
-    const accounts = await ethereumService.getMetamaskAccountID();
-    this.state.coffee.ownerID = accounts[0];
+    await ethereumService.getMetamaskAccountID();
     await ethereumService.initSupplyChain();
   }
 
@@ -239,6 +294,8 @@ class App extends Component {
                   appState={this.state.coffee}
                   onFetchItemBufferOne={this.onFetchItemBufferOne}
                   onFetchItemBufferTwo={this.onFetchItemBufferTwo}
+                  responseBufferOne={this.state.fetchItemBufferOne}
+                  responseBufferTwo={this.state.fetchItemBufferTwo}
                 />
               }
             />

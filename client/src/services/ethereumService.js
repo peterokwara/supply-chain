@@ -64,7 +64,6 @@ class EthereumService {
     // Retrieve accounts
     const accounts = await this.App.web3Provider.listAccounts();
     this.App.metamaskAccountID = accounts[0];
-    return accounts[0];
   }
 
   /**
@@ -221,22 +220,23 @@ class EthereumService {
   }
   async fetchItemBufferOne(upc) {
     const { fetchItemBufferOne } = this.App.contracts.SupplyChain;
+    let transaction;
     try {
-      const transaction = await fetchItemBufferOne(upc, {
+      transaction = await fetchItemBufferOne(upc, {
         from: this.App.metamaskAccountID,
         gasLimit: 4712388,
         gasPrice: 0,
       });
-      // await transaction.wait();
-      console.log(transaction);
     } catch (error) {
       console.log(error);
     }
+    return transaction;
   }
   async fetchItemBufferTwo(upc) {
     const { fetchItemBufferTwo } = this.App.contracts.SupplyChain;
+    let transaction;
     try {
-      const transaction = await fetchItemBufferTwo(upc, {
+      transaction = await fetchItemBufferTwo(upc, {
         from: this.App.metamaskAccountID,
         gasLimit: 4712388,
         gasPrice: 0,
@@ -246,6 +246,7 @@ class EthereumService {
     } catch (error) {
       console.log(error);
     }
+    return transaction;
   }
 }
 
