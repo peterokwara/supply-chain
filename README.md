@@ -1,10 +1,3 @@
-# supply-chain
-
-Ethereum Dap for Tracking Items through Supply Chain. Part of the Udacity Blockchain Nanodegree.
-React v16.15.0
-nvm use 10
-nvm use node
-
 <p align="center">
   <h3 align="center">Supply Chain</h3>
 
